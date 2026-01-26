@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+</head>
+<body>
+
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyCg5jaxHtALGbHssWD6sk7EklZsj3EFSLk",
+    authDomain: "auth-rat.firebaseapp.com",
+    projectId: "auth-rat",
+    storageBucket: "auth-rat.appspot.com",
+    messagingSenderId: "211012554206",
+    appId: "1:211012554206:web:f0697a1b9289659754a14f"
+  };
+
+  if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  const auth = firebase.auth();
+
+  // ✅ JIKA SUDAH LOGIN → LANGSUNG MASUK DASHBOARD
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      window.location.replace("index.html");
+    }
+  });
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const pass = document.getElementById("password").value;
+    firebase.auth().setPersistence(
+      firebase.auth.Auth.Persistence.SESSION
+    ).then(() => {
+      return
+    auth.signInWithEmailAndPassword(email, pass)
+      .catch(err => alert(err.message));
+  }
+</script>
+
+</body>
+</html>
