@@ -25,9 +25,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
 <script>
-  // Sembunyikan body supaya konten tidak kelihatan sebelum cek login selesai
-  document.documentElement.style.display = 'none';
-
+  
   // Cek status login
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
