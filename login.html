@@ -175,6 +175,18 @@ setTimeout(()=>location.href="index.html",1300);
 .catch(err=>showToast(humanErr(err.code),"err"));
 }
 
+/ TAMBAHKAN INI: Set persistence ke SESSION agar tutup tab langsung log out
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+.then(() => {
+return auth.signInWithEmailAndPassword(e,p);
+})
+.then(()=>{
+showToast("LOGIN SUCCESS","ok");
+setTimeout(()=>location.href="index.html",1300);
+})
+.catch(err=>showToast(humanErr(err.code),"err"));
+}
+  
 /* ===== Music autoplay via any gesture ===== */
 const bgm=document.getElementById("bgm");
 ["click","touchstart","keydown"].forEach(ev=>{
