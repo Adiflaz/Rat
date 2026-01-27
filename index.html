@@ -20,6 +20,23 @@
 
     <script src="js/theme.js"></script>
 
+​<script>
+// Sembunyikan halaman agar tidak 'bocor'
+document.documentElement.style.display = 'none';
+​// Cek sesi login otomatis
+firebase.auth().onAuthStateChanged((user) => {
+if (user) {
+// Jika sudah login, tampilkan isi dashboard
+document.documentElement.style.display = 'block';
+} else {
+// Jika belum login, paksa ke halaman login
+window.location.replace("login.html");
+}
+});
+</script>
+
+
+    
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
