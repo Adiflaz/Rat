@@ -31,3 +31,21 @@ if (document.readyState === "loading") {
 } else {
     initMobileSidebar();
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const navbar = document.querySelector(".navbar-right");
+  if (!navbar) return;
+
+  if (!document.getElementById("logoutBtn")) {
+    navbar.insertAdjacentHTML(
+      "beforeend",
+      `<button id="logoutBtn" class="btn btn-danger btn-sm">Logout</button>`
+    );
+  }
+
+  document.getElementById("logoutBtn").onclick = () => {
+    firebase.auth().signOut().then(() => {
+      location.replace("login.html");
+    });
+  };
+});
