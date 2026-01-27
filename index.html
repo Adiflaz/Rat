@@ -175,5 +175,21 @@ window.location.replace("login.html");
       });
     </script>
 
+
+    <script>
+const SESSION_FLAG = "page_alive";
+
+sessionStorage.setItem(SESSION_FLAG, "1");
+
+window.addEventListener("pageshow", () => {
+  sessionStorage.setItem(SESSION_FLAG, "1");
+});
+
+window.addEventListener("beforeunload", () => {
+  if (!sessionStorage.getItem(SESSION_FLAG)) {
+    firebase.auth().signOut();
+  }
+});
+</script>
 </body>
 </html>
