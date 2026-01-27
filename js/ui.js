@@ -33,28 +33,30 @@ if (document.readyState === "loading") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const sidebar = document.querySelector(".sidebar");
-  if (!sidebar) {
-    console.warn("Sidebar not found");
+  const menu =
+    document.querySelector(".sidebar ul") ||
+    document.querySelector(".sidebar .menu");
+
+  if (!menu) {
+    console.warn("Sidebar menu not found");
     return;
   }
 
-  // Cegah dobel
   if (document.getElementById("logoutBtn")) return;
 
-  // Tambahkan logout di bawah sidebar
-  sidebar.insertAdjacentHTML(
+  menu.insertAdjacentHTML(
     "beforeend",
     `
-    <div style="padding:16px;">
-      <button id="logoutBtn" class="btn btn-danger w-100">
-        Logout
-      </button>
-    </div>
+    <li class="menu-item">
+      <a href="#" id="logoutBtn" class="menu-link text-danger">
+        🚪 Logout
+      </a>
+    </li>
     `
   );
 
-  document.getElementById("logoutBtn").addEventListener("click", () => {
+  document.getElementById("logoutBtn").addEventListener("click", e => {
+    e.preventDefault();
     firebase.auth().signOut().then(() => {
       location.replace("login.html");
     });
