@@ -164,9 +164,27 @@ return "INVALID EMAIL PASSWORD";
 
 /* ===== Login Auth (TIDAK AUTO MASUK) ===== */
 function login(){
-const e=email.value.trim();
-const p=password.value.trim();
-if(!e||!p){showToast("INVALID EMAIL PASSWORD","err");return;}
+  const e = email.value.trim();
+  const p = password.value.trim();
+
+  if(!e || !p){
+    showToast("INVALID EMAIL PASSWORD","err");
+    return;
+  }
+
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+    .then(() => {
+      return auth.signInWithEmailAndPassword(e, p);
+    })
+    .then(() => {
+      showToast("LOGIN SUCCESS","ok");
+      setTimeout(() => location.href="index.html", 1300);
+    })
+    .catch(err => showToast(humanErr(err.code),"err"));
+}
+
+
+  
 auth.signInWithEmailAndPassword(e,p)
 .then(()=>{
 showToast("LOGIN SUCCESS","ok");
