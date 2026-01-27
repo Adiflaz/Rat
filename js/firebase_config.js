@@ -13,4 +13,4 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 // Global database reference
-const database = firebase.database();
+const db = firebase.database();
