@@ -163,21 +163,14 @@ return "INVALID EMAIL PASSWORD";
 }
 
 /* ===== Login Auth (TIDAK AUTO MASUK) ===== */
-function login(){
+  function login(){
 const e=email.value.trim();
 const p=password.value.trim();
 if(!e||!p){showToast("INVALID EMAIL PASSWORD","err");return;}
-auth.signInWithEmailAndPassword(e,p)
-.then(()=>{
-showToast("LOGIN SUCCESS","ok");
-setTimeout(()=>location.href="index.html",1300);
-})
-.catch(err=>showToast(humanErr(err.code),"err"));
-}
-
-/ TAMBAHKAN INI: Set persistence ke SESSION agar tutup tab langsung log out
+​// Atur sesi agar otomatis logout saat tab ditutup
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
 .then(() => {
+// Jalankan proses login setelah setting sesi berhasil
 return auth.signInWithEmailAndPassword(e,p);
 })
 .then(()=>{
@@ -186,6 +179,7 @@ setTimeout(()=>location.href="index.html",1300);
 })
 .catch(err=>showToast(humanErr(err.code),"err"));
 }
+
   
 /* ===== Music autoplay via any gesture ===== */
 const bgm=document.getElementById("bgm");
