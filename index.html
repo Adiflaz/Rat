@@ -145,9 +145,13 @@
     if (btnMobile) btnMobile.addEventListener("click", doLogout);
   });
 </script>
-<!--Kembali tetap logout-->
 <script>
+let authChecked = false;
+
 firebase.auth().onAuthStateChanged(user => {
+  if (authChecked) return; // cegah trigger dua kali
+  authChecked = true;
+
   if (!user) {
     window.location.replace("login.html");
   }
