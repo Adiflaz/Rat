@@ -14,3 +14,5 @@ firebase.initializeApp(firebaseConfig);
 
 // Global database reference
 const database = firebase.database();
+const database = firebase.database();
+const db = database; // Tambahkan ini agar 'db' juga berfungsi
