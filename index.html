@@ -145,13 +145,6 @@
     if (btnMobile) btnMobile.addEventListener("click", doLogout);
   });
 </script>
-<script>
-firebase.auth().onAuthStateChanged(user => {
-  if (!user) {
-    window.location.replace("login.html");
-  }
-});
-</script>
 
 </body>
 </html>
