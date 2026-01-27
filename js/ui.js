@@ -31,34 +31,3 @@ if (document.readyState === "loading") {
 } else {
     initMobileSidebar();
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  const menu =
-    document.querySelector(".sidebar ul") ||
-    document.querySelector(".sidebar .menu");
-
-  if (!menu) {
-    console.warn("Sidebar menu not found");
-    return;
-  }
-
-  if (document.getElementById("logoutBtn")) return;
-
-  menu.insertAdjacentHTML(
-    "beforeend",
-    `
-    <li class="menu-item">
-      <a href="#" id="logoutBtn" class="menu-link text-danger">
-        🚪 Logout
-      </a>
-    </li>
-    `
-  );
-
-  document.getElementById("logoutBtn").addEventListener("click", e => {
-    e.preventDefault();
-    firebase.auth().signOut().then(() => {
-      location.replace("login.html");
-    });
-  });
-});
