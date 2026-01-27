@@ -33,19 +33,30 @@ if (document.readyState === "loading") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  const navbar = document.querySelector(".navbar-right");
-  if (!navbar) return;
-
-  if (!document.getElementById("logoutBtn")) {
-    navbar.insertAdjacentHTML(
-      "beforeend",
-      `<button id="logoutBtn" class="btn btn-danger btn-sm">Logout</button>`
-    );
+  const sidebar = document.querySelector(".sidebar");
+  if (!sidebar) {
+    console.warn("Sidebar not found");
+    return;
   }
 
-  document.getElementById("logoutBtn").onclick = () => {
+  // Cegah dobel
+  if (document.getElementById("logoutBtn")) return;
+
+  // Tambahkan logout di bawah sidebar
+  sidebar.insertAdjacentHTML(
+    "beforeend",
+    `
+    <div style="padding:16px;">
+      <button id="logoutBtn" class="btn btn-danger w-100">
+        Logout
+      </button>
+    </div>
+    `
+  );
+
+  document.getElementById("logoutBtn").addEventListener("click", () => {
     firebase.auth().signOut().then(() => {
       location.replace("login.html");
     });
-  };
+  });
 });
